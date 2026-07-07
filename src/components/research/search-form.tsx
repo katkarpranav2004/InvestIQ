@@ -5,6 +5,7 @@ import { Search } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 import { EXAMPLE_COMPANIES } from "@/lib/constants";
 
 interface SearchFormProps {
@@ -22,24 +23,32 @@ export function SearchForm({ onSubmit, isLoading }: SearchFormProps) {
   };
 
   return (
-    <div className="glass-card p-6 md:p-8">
+    <div className="gradient-border glass-card p-7 md:p-9">
       <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder="Enter a company name, e.g. NVIDIA"
-            className="pl-10"
+            className="h-13 pl-11 text-base"
             disabled={isLoading}
           />
         </div>
-        <Button type="submit" variant="gradient" size="lg" disabled={isLoading || !value.trim()}>
-          {isLoading ? "Researching..." : "Analyze"}
-        </Button>
+        <MagneticButton className="w-full sm:w-auto">
+          <Button
+            type="submit"
+            variant="gradient"
+            size="lg"
+            disabled={isLoading || !value.trim()}
+            className="w-full sm:w-auto"
+          >
+            {isLoading ? "Researching..." : "Analyze"}
+          </Button>
+        </MagneticButton>
       </form>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2">
+      <div className="mt-5 flex flex-wrap items-center gap-2">
         <span className="text-xs text-muted-foreground">Try:</span>
         {EXAMPLE_COMPANIES.map((name) => (
           <button
@@ -50,7 +59,7 @@ export function SearchForm({ onSubmit, isLoading }: SearchFormProps) {
               setValue(name);
               onSubmit(name);
             }}
-            className="rounded-full border border-white/10 px-3 py-1 text-xs text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground disabled:opacity-40"
+            className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3.5 py-1.5 text-xs text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-foreground disabled:opacity-40"
           >
             {name}
           </button>

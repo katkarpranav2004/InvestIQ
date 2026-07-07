@@ -22,23 +22,34 @@ export default function ResearchPage() {
   }, [report, router]);
 
   return (
-    <section className="mx-auto max-w-3xl px-6 py-16">
-      <div className="mb-10 text-center">
-        <h1 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
-          Research Dashboard
+    <section className="relative mx-auto max-w-3xl px-6 py-20">
+      <motion.div
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-10 text-center"
+      >
+        <h1 className="font-display text-4xl font-semibold tracking-tight md:text-5xl">
+          Research <span className="text-gradient-luxe">Dashboard</span>
         </h1>
         <p className="mt-3 text-muted-foreground">
           Enter any public company and let the AI agent build a full investment research report.
         </p>
-      </div>
+      </motion.div>
 
-      <SearchForm onSubmit={runResearch} isLoading={isLoading} />
+      <motion.div
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <SearchForm onSubmit={runResearch} isLoading={isLoading} />
+      </motion.div>
 
       {error && (
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-6 flex items-start gap-3 rounded-lg border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive"
+          className="mt-6 flex items-start gap-3 rounded-2xl border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive"
         >
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
           <p>{error}</p>
@@ -47,8 +58,9 @@ export default function ResearchPage() {
 
       {isLoading && (
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
           className="mt-6"
         >
           <AgentProgress activeStep={activeStep} completedSteps={completedSteps} />

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 /**
  * Zod schemas used with `model.withStructuredOutput()` so every LangGraph node
- * gets typed, predictable JSON back from Gemini instead of free-form text.
+ * gets typed, predictable JSON back from the model instead of free-form text.
  */
 
 export const companyOverviewSchema = z.object({

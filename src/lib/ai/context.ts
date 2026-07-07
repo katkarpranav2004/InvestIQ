@@ -2,7 +2,7 @@ import type { ResearchStateType } from "./state";
 
 /**
  * Flattens whatever the graph has learned so far into a compact text block
- * that later nodes (risk, SWOT, decision) can pass to Gemini as context,
+ * that later nodes (risk, SWOT, decision) can pass to the model as context,
  * instead of re-sending the entire structured state.
  */
 export function buildContext(state: ResearchStateType): string {

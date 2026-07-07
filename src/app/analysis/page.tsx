@@ -5,19 +5,23 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Building2,
-  LineChart as LineChartIcon,
   Newspaper,
   ShieldAlert,
+  Sparkles,
   Target,
+  TrendingDown,
   TrendingUp,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { VerdictCard } from "@/components/analysis/verdict-card";
+import { CompanyOverviewCard } from "@/components/analysis/company-overview-card";
+import { LinearMeter } from "@/components/analysis/linear-meter";
 import { ScoreGauge } from "@/components/analysis/score-gauge";
-import { RecommendationBadge } from "@/components/analysis/recommendation-badge";
 import { SectionCard } from "@/components/analysis/section-card";
 import { SwotGrid } from "@/components/analysis/swot-grid";
+import { NewsTimeline } from "@/components/analysis/news-timeline";
 import { LAST_REPORT_STORAGE_KEY } from "@/lib/constants";
 import type { ResearchReport } from "@/types";
 
@@ -34,7 +38,7 @@ export default function AnalysisPage() {
   if (!report) {
     return (
       <section className="mx-auto max-w-xl px-6 py-24 text-center">
-        <h1 className="font-display text-2xl font-bold">No report found</h1>
+        <h1 className="font-display text-2xl font-semibold">No report found</h1>
         <p className="mt-3 text-muted-foreground">
           Run a new research query to generate an investment analysis report.
         </p>
@@ -48,43 +52,66 @@ export default function AnalysisPage() {
   const { overview, news, business, financial, risk, swot, decision } = report;
 
   return (
-    <section className="mx-auto max-w-5xl px-6 py-12">
+    <section className="relative mx-auto max-w-5xl px-6 py-12">
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card mb-8 p-6 md:p-8"
+        transition={{ duration: 0.5 }}
+        className="mb-6 flex flex-wrap items-end justify-between gap-3"
       >
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <p className="text-xs uppercase tracking-wide text-muted-foreground">
-              Investment Research Report
-            </p>
-            <h1 className="font-display text-3xl font-bold tracking-tight">
-              {overview.legalName || report.companyName}
-            </h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {overview.sector} &middot; {overview.industry} &middot; Generated{" "}
-              {new Date(report.generatedAt).toLocaleString()}
-            </p>
-          </div>
-          <RecommendationBadge recommendation={decision.recommendation} />
+        <div>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">Investment Research Report</p>
+          <h1 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
+            {overview.legalName || report.companyName}
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {overview.sector} &middot; {overview.industry} &middot; Generated{" "}
+            {new Date(report.generatedAt).toLocaleString()}
+          </p>
         </div>
+      </motion.div>
 
-        <p className="mt-5 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          {overview.summary}
-        </p>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-5"
+      >
+        <VerdictCard decision={decision} />
+      </motion.div>
 
-        <div className="mt-8 flex flex-wrap justify-center gap-6 border-t border-white/10 pt-8 sm:justify-start">
-          <ScoreGauge label="Investment Score" score={decision.investmentScore} colorClass="primary" />
-          <ScoreGauge label="Risk Score" score={risk.riskScore} />
-          <ScoreGauge label="Confidence" score={decision.confidenceScore} colorClass="primary" />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-5 grid grid-cols-1 gap-5 sm:grid-cols-2"
+      >
+        <div className="glass-card flex items-center p-6">
+          <LinearMeter
+            label="Risk Score"
+            value={risk.riskScore}
+            tone="bad"
+            icon={<ShieldAlert className="h-4 w-4" />}
+            helperText="Higher means riskier"
+          />
+        </div>
+        <div className="glass-card flex items-center justify-center gap-6 p-6">
           <ScoreGauge label="Growth Potential" score={financial.growthScore} />
         </div>
       </motion.div>
 
-      <Tabs defaultValue="decision">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-8"
+      >
+        <CompanyOverviewCard overview={overview} />
+      </motion.div>
+
+      <Tabs defaultValue="highlights">
         <TabsList className="flex w-full flex-wrap justify-start gap-1 sm:w-fit">
-          <TabsTrigger value="decision">Decision</TabsTrigger>
+          <TabsTrigger value="highlights">Highlights</TabsTrigger>
           <TabsTrigger value="business">Business</TabsTrigger>
           <TabsTrigger value="financial">Financials</TabsTrigger>
           <TabsTrigger value="news">News</TabsTrigger>
@@ -92,25 +119,20 @@ export default function AnalysisPage() {
           <TabsTrigger value="swot">SWOT</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="decision" className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <SectionCard icon={Target} title="Detailed Reasoning">
-            <p>{decision.reasoning}</p>
+        <TabsContent value="highlights" className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <SectionCard icon={TrendingUp} title="Key Positives" tint="primary">
+            <BulletList items={decision.keyPositives} />
           </SectionCard>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-1">
-            <SectionCard icon={TrendingUp} title="Key Positives">
-              <BulletList items={decision.keyPositives} />
-            </SectionCard>
-            <SectionCard icon={ShieldAlert} title="Key Concerns">
-              <BulletList items={decision.keyConcerns} />
-            </SectionCard>
-          </div>
+          <SectionCard icon={TrendingDown} title="Key Concerns" tint="secondary">
+            <BulletList items={decision.keyConcerns} />
+          </SectionCard>
         </TabsContent>
 
         <TabsContent value="business" className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <SectionCard icon={Building2} title="Business Model">
+          <SectionCard icon={Building2} title="Business Model" tint="primary">
             <p>{business.businessModel}</p>
           </SectionCard>
-          <SectionCard icon={Target} title="Industry Position &amp; Competitors">
+          <SectionCard icon={Target} title="Industry Position &amp; Competitors" tint="accent">
             <p>{business.industryPosition}</p>
             <p>{business.competitiveLandscape}</p>
             <BulletList items={business.competitors} />
@@ -118,26 +140,26 @@ export default function AnalysisPage() {
         </TabsContent>
 
         <TabsContent value="financial" className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <SectionCard icon={LineChartIcon} title="Financial Performance">
+          <SectionCard icon={TrendingUp} title="Financial Performance" tint="primary">
             <p>{financial.summary}</p>
             <p className="font-medium text-foreground">{financial.revenueTrend}</p>
           </SectionCard>
-          <SectionCard icon={TrendingUp} title="Growth Potential">
+          <SectionCard icon={Sparkles} title="Growth Potential" tint="accent">
             <p>{financial.growthPotential}</p>
           </SectionCard>
         </TabsContent>
 
         <TabsContent value="news" className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <SectionCard icon={Newspaper} title={`Recent News (Sentiment: ${news.sentiment})`}>
+          <SectionCard icon={Newspaper} title={`Recent News (Sentiment: ${news.sentiment})`} tint="primary">
             <p>{news.summary}</p>
           </SectionCard>
-          <SectionCard icon={Newspaper} title="Key Events">
-            <BulletList items={news.keyEvents} />
+          <SectionCard icon={Newspaper} title="Key Events Timeline" tint="accent">
+            <NewsTimeline events={news.keyEvents} />
           </SectionCard>
         </TabsContent>
 
         <TabsContent value="risk" className="grid grid-cols-1 gap-4">
-          <SectionCard icon={ShieldAlert} title="Risk Summary">
+          <SectionCard icon={ShieldAlert} title="Risk Summary" tint="secondary">
             <p>{risk.summary}</p>
             <BulletList items={risk.riskFactors} />
           </SectionCard>

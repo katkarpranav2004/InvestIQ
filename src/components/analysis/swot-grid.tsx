@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Lightbulb, ShieldAlert, TrendingUp, TriangleAlert } from "lucide-react";
 
 import type { SwotAnalysis } from "@/types";
@@ -9,17 +12,24 @@ const QUADRANTS: {
   icon: typeof TrendingUp;
   classes: string;
 }[] = [
-  { key: "strengths", label: "Strengths", icon: TrendingUp, classes: "border-success/30 bg-success/[0.06]" },
-  { key: "weaknesses", label: "Weaknesses", icon: ShieldAlert, classes: "border-destructive/30 bg-destructive/[0.06]" },
-  { key: "opportunities", label: "Opportunities", icon: Lightbulb, classes: "border-primary/30 bg-primary/[0.06]" },
-  { key: "threats", label: "Threats", icon: TriangleAlert, classes: "border-warning/30 bg-warning/[0.06]" },
+  { key: "strengths", label: "Strengths", icon: TrendingUp, classes: "border-success/25 bg-success/[0.06]" },
+  { key: "weaknesses", label: "Weaknesses", icon: ShieldAlert, classes: "border-destructive/25 bg-destructive/[0.06]" },
+  { key: "opportunities", label: "Opportunities", icon: Lightbulb, classes: "border-accent/25 bg-accent/[0.06]" },
+  { key: "threats", label: "Threats", icon: TriangleAlert, classes: "border-warning/25 bg-warning/[0.06]" },
 ];
 
 export function SwotGrid({ swot }: { swot: SwotAnalysis }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      {QUADRANTS.map((quadrant) => (
-        <div key={quadrant.key} className={cn("rounded-xl border p-5", quadrant.classes)}>
+      {QUADRANTS.map((quadrant, i) => (
+        <motion.div
+          key={quadrant.key}
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: i * 0.08 }}
+          className={cn("rounded-2xl border p-6 backdrop-blur", quadrant.classes)}
+        >
           <div className="mb-3 flex items-center gap-2">
             <quadrant.icon className="h-4 w-4" />
             <h4 className="font-display text-sm font-semibold">{quadrant.label}</h4>
@@ -32,7 +42,7 @@ export function SwotGrid({ swot }: { swot: SwotAnalysis }) {
               </li>
             ))}
           </ul>
-        </div>
+        </motion.div>
       ))}
     </div>
   );

@@ -25,6 +25,41 @@ export const WORKFLOW_STEPS: { id: WorkflowStep; label: string; description: str
 
 export const EXAMPLE_COMPANIES = ["NVIDIA", "Tesla", "Apple", "Amazon", "Microsoft", "Netflix"];
 
+/** Wider ticker list for the animated marquee on the home hero (display only). */
+export const TICKER_COMPANIES = [
+  "NVIDIA",
+  "Tesla",
+  "Apple",
+  "Amazon",
+  "Microsoft",
+  "Netflix",
+  "Google",
+  "Meta",
+  "Berkshire Hathaway",
+  "Visa",
+  "JPMorgan",
+  "Costco",
+];
+
+/** Animated stat chips shown on the home hero. */
+export const HOME_STATS: { value: number; suffix: string; label: string }[] = [
+  { value: 8, suffix: "", label: "Analysis steps per run" },
+  { value: 11, suffix: "", label: "Dimensions evaluated" },
+  { value: 100, suffix: "%", label: "Structured, typed output" },
+];
+
+/** Flavor text shown while each workflow step is actively running, for the "AI thinking" loading UI. */
+export const THINKING_MESSAGES: Record<WorkflowStep, string[]> = {
+  research: ["Pulling up the company profile...", "Mapping headquarters, leadership, sector..."],
+  news: ["Reading the latest headlines...", "Gauging market sentiment..."],
+  business: ["Reviewing the business model...", "Mapping the competitive landscape..."],
+  financial: ["Analyzing financial statements...", "Modeling revenue and growth trends..."],
+  risk: ["Evaluating regulatory and market risks...", "Stress-testing the downside..."],
+  swot: ["Building the SWOT analysis...", "Weighing strengths against threats..."],
+  decision: ["Weighing the full picture...", "Generating the investment recommendation..."],
+  report: ["Compiling the final report...", "Polishing the numbers..."],
+};
+
 /** sessionStorage key used to hand the freshly-generated report off to the /analysis page. */
 export const LAST_REPORT_STORAGE_KEY = "investiq:last-report";
 

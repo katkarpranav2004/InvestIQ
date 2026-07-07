@@ -21,7 +21,7 @@ scored, evidence-backed Invest / Hold / Avoid recommendation with full reasoning
 | Frontend   | Next.js 15 (App Router), React 19, TypeScript          |
 | Styling    | Tailwind CSS, shadcn/ui-style components, Framer Motion |
 | Backend    | Next.js API Routes (Node.js runtime)                   |
-| AI         | LangChain.js + LangGraph.js + Google Gemini            |
+| AI         | LangChain.js + LangGraph.js + Groq (Llama 3.3 70B)      |
 | Validation | Zod (structured output schemas)                        |
 | Charts     | Recharts                                                |
 | Deployment | Vercel                                                  |
@@ -54,7 +54,7 @@ scored, evidence-backed Invest / Hold / Avoid recommendation with full reasoning
 │                                              Final Report           │
 └────────────────────────┬──────────────────────────────────────────┘
                           ▼
-                 Google Gemini (via LangChain.js
+                 Groq / Llama 3.3 70B (via LangChain.js
                  structured output + Zod schemas)
 ```
 
@@ -113,7 +113,7 @@ InvestIQ/
 │   │   └── analysis/                 # score gauge, SWOT grid, recommendation badge
 │   ├── lib/
 │   │   ├── ai/
-│   │   │   ├── model.ts              # Gemini client
+│   │   │   ├── model.ts              # Groq client
 │   │   │   ├── schemas.ts            # Zod schemas per workflow node
 │   │   │   ├── prompts.ts            # Prompt templates per workflow node
 │   │   │   ├── state.ts              # LangGraph state (Annotation.Root)
@@ -136,7 +136,7 @@ InvestIQ/
    npm install
    ```
 
-2. **Get a free Gemini API key** at [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
+2. **Get a free Groq API key** at [console.groq.com/keys](https://console.groq.com/keys) (no card required).
 
 3. **Configure environment variables**
 
@@ -167,7 +167,7 @@ in strict sequence so each step can build on what earlier steps learned:
 7. **Decision** — investment score, confidence score, recommendation, reasoning
 8. **Report** — assembles everything into the final `ResearchReport`
 
-Every node calls Gemini through `model.withStructuredOutput(zodSchema)`, so the
+Every node calls Groq through `model.withStructuredOutput(zodSchema)`, so the
 graph always gets back type-safe JSON instead of free-form text that would
 need fragile parsing.
 
@@ -176,7 +176,7 @@ Research Dashboard shows the agent's progress live instead of one long spinner.
 
 ## Known Limitations & Notes
 
-- **No live web/news APIs.** The News and Research nodes rely on Gemini's own
+- **No live web/news APIs.** The News and Research nodes rely on the model's own
   training knowledge rather than a live search API, so very recent events may
   not be reflected. See "Future Enhancements" below.
 - **No persistence.** Reports are handed from the Research page to the
@@ -196,14 +196,14 @@ Research Dashboard shows the agent's progress live instead of one long spinner.
 - Add authentication and per-user research history.
 - Add PDF export of the analysis report.
 - Add side-by-side company comparison.
-- Add caching so re-running the same company within a time window doesn't reissue Gemini calls.
+- Add caching so re-running the same company within a time window doesn't reissue model calls.
 
 ## Resume Project Description
 
 > **InvestIQ — AI-Powered Investment Research Platform**
 > Built a full-stack AI SaaS product that autonomously researches public
-> companies using an 8-node LangGraph.js workflow orchestrating Google Gemini,
-> streaming live agent progress over Server-Sent Events to a Next.js 15 /
+> companies using an 8-node LangGraph.js workflow orchestrating Groq-hosted
+> Llama 3.3, streaming live agent progress over Server-Sent Events to a Next.js 15 /
 > React 19 dashboard. Designed Zod-validated structured-output schemas for
 > every workflow node, producing a scored Invest/Hold/Avoid recommendation
 > with full SWOT, risk, and financial analysis.

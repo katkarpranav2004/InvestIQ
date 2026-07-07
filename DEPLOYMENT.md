@@ -21,10 +21,10 @@ git push -u origin main
 
 In the Vercel project settings, add:
 
-| Variable         | Value                                             |
-| ---------------- | -------------------------------------------------- |
-| `GOOGLE_API_KEY` | Your Gemini API key from aistudio.google.com/apikey |
-| `GEMINI_MODEL`   | `gemini-2.0-flash` (or another Gemini model)         |
+| Variable        | Value                                              |
+| --------------- | --------------------------------------------------- |
+| `GROQ_API_KEY`  | Your Groq API key from console.groq.com/keys         |
+| `GROQ_MODEL`    | `llama-3.3-70b-versatile` (or another Groq model)    |
 
 ## 4. Deploy
 
@@ -37,4 +37,4 @@ auto-deploy.
   60 seconds (`export const maxDuration = 60` in `route.ts`). If your Vercel
   plan caps function duration lower than that, reduce it accordingly or
   upgrade your plan.
-- No database or external services are required beyond the Gemini API key.
+- No database or external services are required beyond the Groq API key.
