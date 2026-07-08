@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>InvestIQ - Example Runs</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Arial, sans-serif; background:#0b0b0d; color:#eaeaea; max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; line-height: 1.55; }
+  h1 { font-size: 28px; margin-bottom: 4px; }
+  h2 { font-size: 22px; margin-top: 48px; border-bottom: 1px solid #333; padding-bottom: 8px; color: #d4af37; }
+  h3 { font-size: 16px; color: #c084fc; margin-top: 24px; }
+  p { color: #ccc; }
+  .intro { color: #999; margin-bottom: 24px; }
+  img { max-width: 100%; border-radius: 12px; border: 1px solid #333; display: block; margin: 12px 0 24px; }
+  .caption { font-size: 13px; color: #888; margin-top: -16px; margin-bottom: 24px; }
+  .stat-line { font-weight: 600; color: #22c55e; }
+  ul { color: #ccc; }
+  code { background: #1a1a1c; padding: 2px 6px; border-radius: 4px; color: #ff8a65; }
+</style>
+</head>
+<body>
+
+<h1>InvestIQ &mdash; Example Runs</h1>
+<p class="intro">Real output from the deployed InvestIQ agent (Groq / Llama 3.3 70B), captured
+during live testing &mdash; not hand-written or mocked. Each run took roughly
+8-12 seconds end-to-end across all 8 LangGraph nodes.</p>
+
+<h2>Screenshots</h2>
+
+<h3>Home page</h3>
+<img src="screenshots/01-home.png" alt="InvestIQ home page hero">
+<p class="caption">The landing page hero, with the animated gold/purple/coral headline and live stats.</p>
+
+<h3>Live "AI thinking" loading experience</h3>
+<img src="screenshots/04-ai-thinking.png" alt="AI thinking loading experience mid-run">
+<p class="caption">Captured mid-run on a real NVIDIA query &mdash; the pulsing gradient orb and step tracker update live as each LangGraph node completes.</p>
+
+<h3>Investment verdict card (real NVIDIA run)</h3>
+<img src="screenshots/05-analysis-verdict.png" alt="Investment verdict card showing NVIDIA results">
+<p class="caption">Investment Score 84, Confidence 89 &mdash; real Groq output, not mocked.</p>
+
+<h3>SWOT analysis grid (real NVIDIA run)</h3>
+<img src="screenshots/07-analysis-swot.png" alt="SWOT analysis grid showing NVIDIA results">
+<p class="caption">Strengths / Weaknesses / Opportunities / Threats, generated from the same run.</p>
+
+<h2>Apple</h2>
+<p class="stat-line">Recommendation: Invest &mdash; Investment Score 85 &middot; Confidence 90 &middot; Risk 60 &middot; Growth 80</p>
+
+<h3>Overview</h3>
+<p>Apple Inc. (founded 1976, Cupertino, CA, CEO Tim Cook) &mdash; Technology / Consumer Electronics.
+Designs, manufactures, and markets consumer electronics, software, and online services
+(iPhone, Mac, iPad, Apple Watch, AirPods) with a tightly integrated hardware/software ecosystem.</p>
+
+<h3>Business Model</h3>
+<p>Revenue primarily from hardware sales, plus a fast-growing services segment (Apple Music,
+Apple TV+, iCloud) and App Store commissions. Ecosystem lock-in and premium pricing drive high margins.</p>
+
+<h3>Financials</h3>
+<p>Revenue growing ~10-15% YoY, net margin ~20-25%. Growth driven by the expanding services segment,
+wearables, and emerging-market penetration.</p>
+
+<h3>Risk (60/100)</h3>
+<p>Regulatory scrutiny/antitrust risk, competitive pressure from Samsung/Huawei/Google, high R&amp;D spend,
+global supply chain exposure.</p>
+
+<h3>SWOT</h3>
+<ul>
+  <li><strong>Strengths:</strong> Brand loyalty &amp; premium pricing, diversified hardware/software portfolio, large loyal customer base.</li>
+  <li><strong>Weaknesses:</strong> iPhone revenue concentration, high R&amp;D spend, limited penetration in some emerging markets.</li>
+  <li><strong>Opportunities:</strong> Wearables/accessories growth, expanding services segment, emerging-market penetration (China, India).</li>
+  <li><strong>Threats:</strong> Antitrust/regulatory scrutiny, competition from Samsung/Huawei/Google/Amazon, macroeconomic downturn risk.</li>
+</ul>
+
+<h3>Reasoning</h3>
+<p>Strong brand loyalty, a diversified and growing product/services portfolio, and consistent
+double-digit revenue growth outweigh regulatory and competitive risk &mdash; hence an Invest call
+with high (90/100) confidence.</p>
+
+<h2>Tesla</h2>
+<p class="stat-line">Recommendation: Invest &mdash; Investment Score 80 &middot; Confidence 85 &middot; Risk 60 &middot; Growth 90</p>
+
+<h3>Overview</h3>
+<p>Tesla, Inc. (founded 2003, Austin, TX, CEO Elon Musk) &mdash; Technology / Electric Vehicles and Clean Energy.
+Designs, manufactures, and sells EVs, solar power systems, and energy storage products.</p>
+
+<h3>Business Model</h3>
+<p>~90% of revenue from vehicle sales (Model S/3/X/Y); remaining from energy storage (Powerwall/Powerpack),
+regulatory credit sales, Supercharger network, and subscription/software services (recurring revenue).</p>
+
+<h3>Financials</h3>
+<p>Revenue growing ~20% YoY, consecutive profitable quarters (~$1.1B net income in the modeled quarter).
+Growth driven by Model 3/Y demand, international expansion, and autonomous-driving investment.</p>
+
+<h3>Risk (60/100)</h3>
+<p>Regulatory dependency on EV incentives, intensifying competition (GM, Volkswagen, Nissan, Rivian, Lucid),
+high capex/R&amp;D, supply chain disruption risk, macroeconomic/trade-policy exposure.</p>
+
+<h3>SWOT</h3>
+<ul>
+  <li><strong>Strengths:</strong> EV market leadership, software-centric approach, brand loyalty and scale economics.</li>
+  <li><strong>Weaknesses:</strong> High R&amp;D/capex, dependence on government EV incentives, supply chain fragility.</li>
+  <li><strong>Opportunities:</strong> Growing EV/energy-storage demand, international expansion, autonomous-driving technology.</li>
+  <li><strong>Threats:</strong> EV incentive/regulatory changes, new entrants and established automakers, macroeconomic uncertainty.</li>
+</ul>
+
+<h3>Reasoning</h3>
+<p>Market leadership, a software-centric moat, and ~20% YoY revenue growth support an Invest call,
+tempered to 85/100 confidence by high R&amp;D spend and regulatory dependency on EV incentives.</p>
+
+<h2>Notes on these runs</h2>
+<ul>
+  <li>Both are real Groq/Llama 3.3 completions &mdash; nothing here is hand-edited beyond formatting the raw JSON into readable prose.</li>
+  <li>Numeric fields (scores 0-100, sentiment, etc.) come from the Zod schemas in <code>src/lib/ai/schemas.ts</code> via <code>withStructuredOutput</code>, so they're always present and always in range.</li>
+  <li>Re-running the same company can produce a somewhat different score or wording each time &mdash; the model temperature is intentionally low (0.3, see <code>src/lib/ai/model.ts</code>) to keep runs fairly consistent, but LLM output is never bit-for-bit deterministic.</li>
+</ul>
+
+</body>
+</html>

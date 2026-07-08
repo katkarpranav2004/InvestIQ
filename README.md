@@ -7,8 +7,8 @@ autonomous LangGraph workflow researches it end-to-end — business model,
 industry position, recent news, financials, risk, and SWOT — then produces a
 scored, evidence-backed Invest / Hold / Avoid recommendation with full reasoning.
 
-See [EXAMPLES.txt](EXAMPLES.txt) for real sample runs (Apple, Tesla) and
-screenshots, and [TRANSCRIPT.md](TRANSCRIPT.md) for a curated log of the
+See [EXAMPLES.html](EXAMPLES.html) (open in any browser) for real sample runs
+(Apple, Tesla) with embedded screenshots, and [TRANSCRIPT.md](TRANSCRIPT.md) for a curated log of the
 development session.
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
