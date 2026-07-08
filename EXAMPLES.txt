@@ -1,0 +1,112 @@
+EXAMPLE RUNS
+============
+
+Real output from the deployed InvestIQ agent (Groq / Llama 3.3 70B), captured
+during live testing - not hand-written or mocked. Each run took roughly
+8-12 seconds end-to-end across all 8 LangGraph nodes.
+
+SCREENSHOTS (see the screenshots/ folder):
+
+  screenshots/01-home.png            - Home page hero
+  screenshots/04-ai-thinking.png     - Live "AI thinking" loading experience
+  screenshots/05-analysis-verdict.png - Investment verdict card (real NVIDIA run)
+  screenshots/07-analysis-swot.png   - SWOT analysis grid (real NVIDIA run)
+
+
+APPLE
+-----
+
+Recommendation: Invest
+Investment Score: 85   Confidence: 90   Risk: 60   Growth: 80
+
+Overview:
+Apple Inc. (founded 1976, Cupertino, CA, CEO Tim Cook) - Technology /
+Consumer Electronics. Designs, manufactures, and markets consumer
+electronics, software, and online services (iPhone, Mac, iPad, Apple
+Watch, AirPods) with a tightly integrated hardware/software ecosystem.
+
+Business Model:
+Revenue primarily from hardware sales, plus a fast-growing services
+segment (Apple Music, Apple TV+, iCloud) and App Store commissions.
+Ecosystem lock-in and premium pricing drive high margins.
+
+Financials:
+Revenue growing ~10-15% YoY, net margin ~20-25%. Growth driven by the
+expanding services segment, wearables, and emerging-market penetration.
+
+Risk (60/100):
+Regulatory scrutiny/antitrust risk, competitive pressure from
+Samsung/Huawei/Google, high R&D spend, global supply chain exposure.
+
+SWOT:
+  Strengths:     Brand loyalty & premium pricing, diversified
+                 hardware/software portfolio, large loyal customer base.
+  Weaknesses:    iPhone revenue concentration, high R&D spend, limited
+                 penetration in some emerging markets.
+  Opportunities: Wearables/accessories growth, expanding services
+                 segment, emerging-market penetration (China, India).
+  Threats:       Antitrust/regulatory scrutiny, competition from
+                 Samsung/Huawei/Google/Amazon, macroeconomic downturn risk.
+
+Reasoning:
+Strong brand loyalty, a diversified and growing product/services
+portfolio, and consistent double-digit revenue growth outweigh
+regulatory and competitive risk - hence an Invest call with high
+(90/100) confidence.
+
+
+TESLA
+-----
+
+Recommendation: Invest
+Investment Score: 80   Confidence: 85   Risk: 60   Growth: 90
+
+Overview:
+Tesla, Inc. (founded 2003, Austin, TX, CEO Elon Musk) - Technology /
+Electric Vehicles and Clean Energy. Designs, manufactures, and sells
+EVs, solar power systems, and energy storage products.
+
+Business Model:
+~90% of revenue from vehicle sales (Model S/3/X/Y); remaining from
+energy storage (Powerwall/Powerpack), regulatory credit sales,
+Supercharger network, and subscription/software services (recurring
+revenue).
+
+Financials:
+Revenue growing ~20% YoY, consecutive profitable quarters (~$1.1B net
+income in the modeled quarter). Growth driven by Model 3/Y demand,
+international expansion, and autonomous-driving investment.
+
+Risk (60/100):
+Regulatory dependency on EV incentives, intensifying competition (GM,
+Volkswagen, Nissan, Rivian, Lucid), high capex/R&D, supply chain
+disruption risk, macroeconomic/trade-policy exposure.
+
+SWOT:
+  Strengths:     EV market leadership, software-centric approach, brand
+                 loyalty and scale economics.
+  Weaknesses:    High R&D/capex, dependence on government EV incentives,
+                 supply chain fragility.
+  Opportunities: Growing EV/energy-storage demand, international
+                 expansion, autonomous-driving technology.
+  Threats:       EV incentive/regulatory changes, new entrants and
+                 established automakers, macroeconomic uncertainty.
+
+Reasoning:
+Market leadership, a software-centric moat, and ~20% YoY revenue growth
+support an Invest call, tempered to 85/100 confidence by high R&D spend
+and regulatory dependency on EV incentives.
+
+
+NOTES ON THESE RUNS
+--------------------
+
+- Both are real Groq/Llama 3.3 completions - nothing here is hand-edited
+  beyond formatting the raw JSON into readable prose.
+- Numeric fields (scores 0-100, sentiment, etc.) come from the Zod
+  schemas in src/lib/ai/schemas.ts via withStructuredOutput, so they're
+  always present and always in range.
+- Re-running the same company can produce a somewhat different score or
+  wording each time - the model temperature is intentionally low (0.3,
+  see src/lib/ai/model.ts) to keep runs fairly consistent, but LLM
+  output is never bit-for-bit deterministic.
