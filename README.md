@@ -7,6 +7,8 @@ autonomous LangGraph workflow researches it end-to-end — business model,
 industry position, recent news, financials, risk, and SWOT — then produces a
 scored, evidence-backed Invest / Hold / Avoid recommendation with full reasoning.
 
+See [EXAMPLES.md](EXAMPLES.md) for real sample runs (Apple, Tesla).
+
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
 ![React](https://img.shields.io/badge/React-19-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
@@ -173,6 +175,19 @@ need fragile parsing.
 
 The API route streams each node's completion over Server-Sent Events, so the
 Research Dashboard shows the agent's progress live instead of one long spinner.
+
+## Key Decisions & Trade-offs
+
+| Decision | Why | Trade-off / what was left out |
+| --- | --- | --- |
+| Linear 8-node LangGraph (no branching/looping) | Matches the assignment's flow diagram exactly and stays easy to explain in an interview | Can't skip steps (e.g. no "quick mode") or re-run a single failed step in isolation |
+| Zod `withStructuredOutput` on every node | Guarantees typed, schema-valid JSON instead of parsing free-form text with regex | Ties the app to a provider with solid function-calling support; occasional malformed tool calls still happen (see below) |
+| Groq (Llama 3.3 70B) over Gemini | Gemini API keys available in this environment came from Google's Antigravity IDE and carried a hard 0 request quota, not from AI Studio; Groq has a genuine free tier and very fast inference | Less control over model quality/consistency than a larger frontier model; needed a retry wrapper (`invokeWithRetry`) after a live SWOT-node failure from malformed function-call JSON |
+| Model's own knowledge instead of a live news/search API | Keeps the stack to one provider and zero extra API keys | News and "recent events" can be stale relative to the model's training cutoff — flagged as the top future enhancement |
+| `sessionStorage` handoff between Research → Analysis, no database | Zero backend state, no auth, nothing to provision | Reports aren't shareable via URL and don't survive closing the tab — acceptable for a single-session research tool, not for a multi-user product |
+| SSE streaming instead of one blocking API call | Lets the UI show live per-node progress ("AI thinking" experience) instead of a single long spinner | `EventSource` doesn't support POST bodies, so the client manually reads `res.body` as a stream and parses SSE frames itself |
+| Hand-written shadcn-style primitives instead of the shadcn CLI | Full control over the custom gold/purple/coral design system without a generator dependency | Primitives are maintained by hand rather than pulling upstream component updates |
+| Pinned LangChain.js / LangGraph.js to the 0.3.x line | `npm audit` flags moderate/high advisories on this line; fixing them means upgrading to v1, which renames core APIs (`StateGraph`, `Annotation`) | Deliberately not bumped mid-build to avoid an untested breaking migration — a known, tracked follow-up |
 
 ## Known Limitations & Notes
 
